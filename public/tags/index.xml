@@ -1,22 +1,23 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
     <channel>
-        <title>Tags - Tag - My New Hugo Site</title>
-        <link>http://localhost:1313/tags/</link>
-        <description>Tags - Tag - My New Hugo Site</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Mon, 01 Jan 2024 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://localhost:1313/tags/" rel="self" type="application/rss+xml" /><item>
-    <title>Hugo</title>
-    <link>http://localhost:1313/tags/hugo/</link>
-    <pubDate>Mon, 01 Jan 2024 00:00:00 &#43;0000</pubDate>
-    <author>xxxx</author>
-    <guid>http://localhost:1313/tags/hugo/</guid>
+        <title>Tags - Tag - From Zero to BC Hero</title>
+        <link>http://example.org/tags/</link>
+        <description>Tags - Tag - From Zero to BC Hero</description>
+        <generator>Hugo -- gohugo.io</generator><language>es</language><managingEditor>davidproce@gmail.com (David Proaño)</managingEditor>
+            <webMaster>davidproce@gmail.com (David Proaño)</webMaster><lastBuildDate>Tue, 04 Mar 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="http://example.org/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>Blog</title>
+    <link>http://example.org/tags/blog/</link>
+    <pubDate>Tue, 04 Mar 2025 00:00:00 &#43;0000</pubDate>
+    <author>David Proaño</author>
+    <guid>http://example.org/tags/blog/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>Tutorial</title>
-    <link>http://localhost:1313/tags/tutorial/</link>
-    <pubDate>Mon, 01 Jan 2024 00:00:00 &#43;0000</pubDate>
-    <author>xxxx</author>
-    <guid>http://localhost:1313/tags/tutorial/</guid>
+    <title>Personal</title>
+    <link>http://example.org/tags/personal/</link>
+    <pubDate>Tue, 04 Mar 2025 00:00:00 &#43;0000</pubDate>
+    <author>David Proaño</author>
+    <guid>http://example.org/tags/personal/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>
