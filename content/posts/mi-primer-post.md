@@ -10,13 +10,15 @@ resources:
     src: "/images/mi-imagen.jpg"  
 ---
 
-¡Hola mundo! From Zero to BC Hero. ¡El viaje comienza ahora!. 🚀
+**¡Hola mundo! From Zero to BC Hero. ¡El viaje comienza ahora!.** 🚀
 
 Desde que comencé mi aventura en el mundo del desarrollo, siempre he querido compartir mi conocimiento con personas como yo, que tienen ganas de aprender y mejorar cada día.
 
-Nunca he estado listo para hacerlo,; hay muchas cosas por aprender, y es un mundo desafiante donde uno puede perderse rápidamente. 
+Nunca he estado listo para hacerlo; hay muchas cosas por aprender, y es un mundo desafiante donde uno puede perderse rápidamente. 
 
-Pero eso no tiene que ser un obstáculo, ya que, aunque mi conocimiento es limitado, siempre puedo guiar a cualquier persona interesada en aprender sobre esta tecnología y dar sus primeros pasos. Y sentir que se puede avanzar, que tenemos un largo camino por recorrer, pero que, con esfuerzo y disciplina, podemos convertirnos en buenos profesionales y vivir en un mundo de constante aprendizaje, donde el único valor es nuestro esfuerzo.
+Pero eso no tiene que ser un obstáculo, ya que, aunque mi conocimiento es limitado, siempre puedo guiar a cualquier persona interesada en aprender sobre esta tecnología y dar sus primeros pasos. 
+
+Y sentir que se puede avanzar, que tenemos un largo camino por recorrer, pero que, con esfuerzo y disciplina, podemos convertirnos en buenos profesionales y vivir en un mundo de constante aprendizaje, donde el único valor es nuestro esfuerzo.
 
 ¡A por ello!
 
@@ -35,11 +37,12 @@ Pero eso no tiene que ser un obstáculo, ya que, aunque mi conocimiento es limit
   - Convertirnos en Heros en BC desde 0.
 
 ## Valores
+```al
 trigger OnOpenPage();
 begin
     Message('**Pasión** por aprender y por hacer las cosas bien, cada día.' + 
             ' **Coraje** para enfrentar los retos y mejorar constantemente.' +
             ' **Familia**: una comunidad de apoyo mutuo, donde nos ayudamos a crecer, aprendemos unos de otros y nos divertimos mientras lo hacemos.');
 end;
-
+ ```
 

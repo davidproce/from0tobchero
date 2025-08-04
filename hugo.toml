@@ -1,5 +1,4 @@
-baseURL = "http://example.org/"
-# Change the default theme to be use when building the site with Hugo
+baseURL = "https://www.from0tobchero.com/"# Change the default theme to be use when building the site with Hugo
 theme = "LoveIt"
 
 # website title
