@@ -7,20 +7,34 @@
             <webMaster>davidproce@gmail.com (David Proaño)</webMaster><lastBuildDate>Sun, 03 Aug 2025 00:00:00 &#43;0000</lastBuildDate>
             <atom:link href="https://www.from0tobchero.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
-    <title>Base técnica AL</title>
-    <link>https://www.from0tobchero.com/posts/loops_en_bc/</link>
-    <pubDate>Sun, 03 Aug 2025 00:00:00 &#43;0000</pubDate>
-    <author>David</author>
-    <guid>https://www.from0tobchero.com/posts/loops_en_bc/</guid>
-    <description><![CDATA[¡Conociendo Loops en BC!]]></description>
-</item>
-<item>
     <title>From Zero to BC Hero</title>
     <link>https://www.from0tobchero.com/posts/mi-primer-post/</link>
     <pubDate>Tue, 04 Mar 2025 00:00:00 &#43;0000</pubDate>
     <author>David</author>
     <guid>https://www.from0tobchero.com/posts/mi-primer-post/</guid>
-    <description><![CDATA[¡From Zero to BC Hero está en marcha!]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/mi-imagen.jpg" referrerpolicy="no-referrer">
+            </div>¡From Zero to BC Hero está en marcha!]]></description>
+</item>
+<item>
+    <title>Base técnica AL - Loops - Diferentes tipos y aplicaciones</title>
+    <link>https://www.from0tobchero.com/posts/loops_en_bc/</link>
+    <pubDate>Sun, 03 Aug 2025 00:00:00 &#43;0000</pubDate>
+    <author>David</author>
+    <guid>https://www.from0tobchero.com/posts/loops_en_bc/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/loops1.png" referrerpolicy="no-referrer">
+            </div>¡Conociendo Loops en BC!]]></description>
+</item>
+<item>
+    <title>Base técnica AL - Loops - While y Repeat until</title>
+    <link>https://www.from0tobchero.com/posts/while_repeat/</link>
+    <pubDate>Sun, 03 Aug 2025 00:00:00 &#43;0000</pubDate>
+    <author>David</author>
+    <guid>https://www.from0tobchero.com/posts/while_repeat/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/loops.jpg" referrerpolicy="no-referrer">
+            </div>¡While y Repeat Until!]]></description>
 </item>
 </channel>
 </rss>

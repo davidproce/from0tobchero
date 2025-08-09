@@ -10,7 +10,9 @@
     <pubDate>Tue, 04 Mar 2025 00:00:00 &#43;0000</pubDate>
     <author>David</author>
     <guid>https://www.from0tobchero.com/posts/mi-primer-post/</guid>
-    <description><![CDATA[¡From Zero to BC Hero está en marcha!]]></description>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/mi-imagen.jpg" referrerpolicy="no-referrer">
+            </div>¡From Zero to BC Hero está en marcha!]]></description>
 </item>
 </channel>
 </rss>
