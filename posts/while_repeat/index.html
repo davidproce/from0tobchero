@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Base técnica AL - Loops - While y Repeat until - From Zero to BC Hero</title><meta name="Description" content="This is From Zero to BC Hero"><meta property="og:url" content="https://www.from0tobchero.com/posts/while_repeat/">
+  <meta property="og:site_name" content="From Zero to BC Hero">
+  <meta property="og:title" content="Base técnica AL - Loops - While y Repeat until">
+  <meta property="og:description" content="¡While y Repeat Until!">
+  <meta property="og:locale" content="es">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-08-03T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-08-03T00:00:00+00:00">
+    <meta property="article:tag" content="MB_820">
+    <meta property="article:tag" content="Técnico">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Base técnica AL - Loops - While y Repeat until">
+  <meta name="twitter:description" content="¡While y Repeat Until!">
+<meta name="application-name" content="From Zero to BC Hero">
+<meta name="apple-mobile-web-app-title" content="From Zero to BC Hero"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.from0tobchero.com/posts/while_repeat/" /><link rel="next" href="https://www.from0tobchero.com/posts/loops_en_bc/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Base técnica AL - Loops - While y Repeat until",
+        "inLanguage": "es",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.from0tobchero.com\/posts\/while_repeat\/"
+        },"genre": "posts","keywords": "MB_820, Técnico","wordcount":  207 ,
+        "url": "https:\/\/www.from0tobchero.com\/posts\/while_repeat\/","datePublished": "2025-08-03T00:00:00+00:00","dateModified": "2025-08-03T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "David"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="From Zero to BC Hero">From Zero to BC Hero</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="From Zero to BC Hero">From Zero to BC Hero</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Base técnica AL - Loops - While y Repeat until</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="davidproce" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>David</a></span>&nbsp;<span class="post-category">included in <a href="/categories/mb_820/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>MB_820</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-08-03">2025-08-03</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;207 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;One minute&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/while_repeat/loops.jpg"
+        data-srcset="/posts/while_repeat/loops.jpg, /posts/while_repeat/loops.jpg 1.5x, /posts/while_repeat/loops.jpg 2x"
+        data-sizes="auto"
+        alt="/posts/while_repeat/loops.jpg"
+        title="/posts/while_repeat/loops.jpg" width="1024" height="1024" /></div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li></li>
+        <li><a href="#for-findset--repeat-until">For (FindSet + repeat until):</a></li>
+        <li><a href="#while-evalúa-antes-de-ejecutar">While (Evalúa antes de ejecutar)</a></li>
+        <li><a href="#repeat---until-genérico-evalúa-después-de-ejecutar">Repeat - until (Genérico) (Evalúa después de ejecutar)</a></li>
+      </ul>
+    </li>
+    <li><a href="#cuándo-usar-cada-uno">Cuándo usar cada uno</a></li>
+    <li><a href="#while">While</a></li>
+    <li><a href="#repeat---until">Repeat - until</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h5 id="while-y-repeat-until-casos-y-usos-prácticos">While y Repeat until: casos y usos prácticos</h5>
+<h3 id="for-findset--repeat-until">For (FindSet + repeat until):</h3>
+<ul>
+<li>Lo que hemos visto: <code>if Record.FindSet() then repeat... until Record.Next() = 0;</code></li>
+<li>Es específico para recorrer registros en tablas</li>
+<li>No puedes controlar cuándo va a parar</li>
+</ul>
+<h3 id="while-evalúa-antes-de-ejecutar">While (Evalúa antes de ejecutar)</h3>
+<ul>
+<li>Para condiciones que pueden cambiar durante el bucle</li>
+<li>Ejemplo: <code>while (Counter &gt; 10) and (Found = False) do</code></li>
+</ul>
+<h3 id="repeat---until-genérico-evalúa-después-de-ejecutar">Repeat - until (Genérico) (Evalúa después de ejecutar)</h3>
+<ul>
+<li>Mínimo 1 vez</li>
+<li>Ejemplo:</li>
+</ul>
+<pre tabindex="0"><code>repeat
+    Counter += 1;
+until Counter = 10;
+</code></pre><h2 id="cuándo-usar-cada-uno">Cuándo usar cada uno</h2>
+<table>
+  <thead>
+      <tr>
+          <th>Usa while cuando:</th>
+          <th>Usa repeat - until cuando:</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Puedes no necesitar ejecutar código</td>
+          <td>Siempre necesitas ejecutar el código</td>
+      </tr>
+      <tr>
+          <td>La condición puede ser falsa desde el inicio</td>
+          <td>Validas datos de entrada</td>
+      </tr>
+      <tr>
+          <td>Navegas por datos hasta encontrar algo</td>
+          <td>Procesas hasta completar una tarea</td>
+      </tr>
+  </tbody>
+</table>
+<h2 id="while">While</h2>
+<p><strong>Generar número único</strong></p>
+<pre tabindex="0"><code>while Customer.Get(NewCustomerNo) do begin
+    Counter += 1;
+    NewCustomerNo := &#39;Cust&#39; + Format(Counter);
+end;
+</code></pre><p><strong>Procesar hasta stock suficiente</strong></p>
+<pre tabindex="0"><code>while (RemainingQty &gt; 0) and (MoreItemsAvailable) do begin
+    // Reservar stock
+    // Actualizar RemainingQty
+end;
+</code></pre><p><strong>Leer archivo línea por línea:</strong></p>
+<pre tabindex="0"><code>while not FileStream.EOS do begin
+    LineText := FileStream.ReadLine();
+    ProcessLine(LineText);
+end;
+</code></pre><h2 id="repeat---until">Repeat - until</h2>
+<ul>
+<li>Evalúa después de ejecutar
+<strong>Validar entrada de usuario</strong></li>
+</ul>
+<pre tabindex="0"><code>repeat
+    Amount := StrToDecimal(InputText);
+    if Amount &lt;= 0 then
+        Message(&#39;Debe ser mayor que 0&#39;)
+until Amount &gt; 0;
+</code></pre></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-08-03</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.from0tobchero.com/posts/while_repeat/" data-title="Base técnica AL - Loops - While y Repeat until" data-hashtags="MB_820,Técnico"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.from0tobchero.com/posts/while_repeat/" data-hashtag="MB_820"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Linkedin" data-sharer="linkedin" data-url="https://www.from0tobchero.com/posts/while_repeat/"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.from0tobchero.com/posts/while_repeat/" data-title="Base técnica AL - Loops - While y Repeat until"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.from0tobchero.com/posts/while_repeat/" data-title="Base técnica AL - Loops - While y Repeat until"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.from0tobchero.com/posts/while_repeat/" data-title="Base técnica AL - Loops - While y Repeat until" data-image="loops.jpg"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/mb_820/">MB_820</a>,&nbsp;<a href="/tags/t%C3%A9cnico/">Técnico</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav">
+            <a href="/posts/loops_en_bc/" class="next" rel="next" title="Base técnica AL - Loops - Diferentes tipos y aplicaciones">Base técnica AL - Loops - Diferentes tipos y aplicaciones<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="davidproce" target="_blank">David Proaño</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>

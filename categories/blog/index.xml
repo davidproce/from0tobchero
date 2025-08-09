@@ -1,0 +1,18 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Blog - Category - From Zero to BC Hero</title>
+        <link>https://www.from0tobchero.com/categories/blog/</link>
+        <description>Blog - Category - From Zero to BC Hero</description>
+        <generator>Hugo -- gohugo.io</generator><language>es</language><managingEditor>davidproce@gmail.com (David Proaño)</managingEditor>
+            <webMaster>davidproce@gmail.com (David Proaño)</webMaster><lastBuildDate>Tue, 04 Mar 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://www.from0tobchero.com/categories/blog/" rel="self" type="application/rss+xml" /><item>
+    <title>From Zero to BC Hero</title>
+    <link>https://www.from0tobchero.com/posts/mi-primer-post/</link>
+    <pubDate>Tue, 04 Mar 2025 00:00:00 &#43;0000</pubDate>
+    <author>David</author>
+    <guid>https://www.from0tobchero.com/posts/mi-primer-post/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/mi-imagen.jpg" referrerpolicy="no-referrer">
+            </div>¡From Zero to BC Hero está en marcha!]]></description>
+</item>
+</channel>
+</rss>
