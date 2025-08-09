@@ -2,12 +2,11 @@
 title: "From Zero to BC Hero"
 date: 2025-03-04
 author: "David"
+weight: 1
 tags: ["Blog", "Personal"]
 categories: ["Blog"]
 summary: "¡From Zero to BC Hero está en marcha!"
-resources:
-  - name: "featured-image"
-    src: "/images/mi-imagen.jpg"  
+featuredImage: "mi-imagen.jpg"  
 ---
 
 **¡Hola mundo! From Zero to BC Hero. ¡El viaje comienza ahora!.** 🚀
@@ -22,7 +21,6 @@ Y sentir que se puede avanzar, que tenemos un largo camino por recorrer, pero qu
 
 ¡A por ello!
 
-![Descripción de la imagen](images/mi-imagen.jpg)
 
 ## Visión
 - Crear una comunidad en el mundo dynamics de apoyo mutuo y aprendizaje continuo:

@@ -1,19 +1,17 @@
 ---
-title: "Base técnica AL"
+title: "Base técnica AL - Loops - Diferentes tipos y aplicaciones"
 date: 2025-08-03
 author: "David"
 tags: ["MB_820", "Técnico"]
 categories: ["MB_820"]
 summary: "¡Conociendo Loops en BC!"
 resources:
-  - name: "featured-image"
-    src: "/images/mi-imagen.jpg"  
+featuredImage: "loops1.png"  
 ---
 
 # Loops: Diferentes tipos y aplicaciones
 
 Como ya sabemos, los **loops** son muy importantes en programación; son la pieza fundamental para empezar a programar. Ahora vamos a ver cómo se construyen en **AL**.
-![Descripción de la imagen](images/loops.jpg)
 ## For Básico (Contador)
 
 * **Propósito**: Iterar un número específico de veces  
