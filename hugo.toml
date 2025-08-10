@@ -14,13 +14,10 @@ languageName = "Español"
   [[menu.main]]
     weight = 1  
     identifier = "posts"
-    # you can add extra information before the name (HTML format is supported), such as icons
     pre = ""
-    # you can add extra information after the name (HTML format is supported), such as icons
     post = ""
     name = "Posts"
     url = "/posts/"
-    # title will be shown when you hover on this menu link
     title = ""
   [[menu.main]]
     weight = 2
@@ -30,9 +27,27 @@ languageName = "Español"
     name = "Tags"
     url = "/tags/"
     title = ""
-    [module]
+  [[menu.main]]
+    weight = 3
+    identifier = "categories"
+    pre = ""
+    post = ""
+    name = "Categories"
+    url = "/categories/"
+    title = ""
+  [[menu.main]]
+    weight = 4
+    identifier = "apps-tools"
+    pre = ""
+    post = ""
+    name = "Tools"
+    url = "/apps-tools/"
+    title = "Herramientas interactivas de aprendizaje"
+
+[module]
   [module.hugoVersion]
     min = "0.128.0"
+
 # Markup related configuration in Hugo
 [markup]
   # Syntax Highlighting (https://gohugo.io/content-management/syntax-highlighting)
@@ -679,4 +694,13 @@ languageName = "Español"
     name = "Categories"
     url = "/categories/"
     title = ""
+
+    [[menu.main]]
+    weight = 4
+    identifier = "apps-tools"
+    pre = ""
+    post = ""
+    name = "Tools"
+    url = "/apps-tools/"
+    title = "Herramientas interactivas de aprendizaje"
 

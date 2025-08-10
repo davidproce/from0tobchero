@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herramientas de Aprendizaje - From Zero to BC Hero</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: white;
+        }
+        
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .tool-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #4CAF50, #2196F3, #FF9800);
+        }
+        
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .tool-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .tool-card h2 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .tool-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        
+        .tool-features {
+            list-style: none;
+            margin-bottom: 1.5rem;
+        }
+        
+        .tool-features li {
+            padding: 0.3rem 0;
+            color: #555;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .tool-features li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .tool-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 0.8rem 2rem;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .tool-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            color: white;
+        }
+        
+        .back-home {
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .back-home a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 0.8rem 2rem;
+            border: 2px solid white;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+        }
+        
+        .back-home a:hover {
+            background: white;
+            color: #667eea;
+        }
+        
+        @media (max-width: 768px) {
+            .tools-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .container {
+                padding: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🛠️ Herramientas de Aprendizaje</h1>
+            <p>Domina las tablas de Business Central con estas herramientas interactivas</p>
+        </header>
+
+        <div class="tools-grid">
+            <!-- Herramienta 1: Referencia de Tablas -->
+            <div class="tool-card">
+                <span class="tool-icon">📊</span>
+                <h2>Referencia Visual de Tablas</h2>
+                <p>Explora las 50 tablas más importantes de Business Central en un formato visual intuitivo y fácil de navegar.</p>
+                <ul class="tool-features">
+                    <li>Vista en cuadrícula optimizada</li>
+                    <li>Búsqueda rápida</li>
+                    <li>Información detallada</li>
+                    <li>Diseño responsive</li>
+                </ul>
+                <a href="tablas-referencia.html" class="tool-btn">Explorar Tablas 📊</a>
+            </div>
+
+            <!-- Herramienta 2: Quiz Interactivo -->
+            <div class="tool-card">
+                <span class="tool-icon">🧠</span>
+                <h2>Quiz Interactivo</h2>
+                <p>Pon a prueba tus conocimientos sobre tablas de BC con preguntas dinámicas y retroalimentación inmediata.</p>
+                <ul class="tool-features">
+                    <li>Preguntas aleatorias</li>
+                    <li>Puntuación en tiempo real</li>
+                    <li>Explicaciones detalladas</li>
+                    <li>Niveles de dificultad</li>
+                </ul>
+                <a href="quiz-tablas.html" class="tool-btn">Comenzar Quiz 🧠</a>
+            </div>
+
+            <!-- Herramienta 3: Flashcards -->
+            <div class="tool-card">
+                <span class="tool-icon">🃏</span>
+                <h2>Flashcards Interactivas</h2>
+                <p>Repasa y memoriza información clave sobre tablas usando tarjetas interactivas con técnicas de repetición espaciada.</p>
+                <ul class="tool-features">
+                    <li>Tarjetas interactivas</li>
+                    <li>Modo de estudio</li>
+                    <li>Progreso personalizado</li>
+                    <li>Repetición espaciada</li>
+                </ul>
+                <a href="flashcards-tablas.html" class="tool-btn">Estudiar Flashcards 🃏</a>
+            </div>
+        </div>
+
+        <div class="back-home">
+            <a href="/">← Volver al Blog Principal</a>
+        </div>
+    </div>
+</body>
+</html>
