@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>BC 50 Core - Flashcards</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0; 
+            padding: 20px; 
+            min-height: 100vh;
+        }
+        .container { 
+            max-width: 900px; 
+            margin: 0 auto; 
+            background: white; 
+            border-radius: 15px; 
+            padding: 30px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        h1 {
+            text-align: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+            font-size: 2.5em;
+        }
+        .filter-section {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid transparent;
+            border-radius: 25px;
+            background: #ecf0f1;
+            color: #2c3e50;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .filter-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: scale(1.05);
+        }
+        .filter-btn:hover {
+            transform: scale(1.02);
+        }
+        .flashcard {
+            width: 100%;
+            height: 400px;
+            perspective: 1000px;
+            margin: 20px 0;
+        }
+        .card {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            transform-style: preserve-3d;
+            transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+            cursor: pointer;
+        }
+        .card.flipped { transform: rotateY(180deg); }
+        .card-face {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            box-sizing: border-box;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .card-front { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        .card-back { 
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            transform: rotateY(180deg);
+        }
+        .table-name { 
+            font-size: 3em; 
+            font-weight: bold; 
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .table-number { 
+            font-size: 1.5em; 
+            opacity: 0.9;
+            margin-bottom: 20px;
+        }
+        .table-category {
+            font-size: 1.1em;
+            padding: 8px 16px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 20px;
+            margin-top: 10px;
+        }
+        .answer { 
+            text-align: left; 
+            width: 100%; 
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+        .answer-item { 
+            margin: 15px 0; 
+            padding: 12px 16px; 
+            border-radius: 8px; 
+            background: rgba(255,255,255,0.1);
+            border-left: 4px solid rgba(255,255,255,0.5);
+        }
+        .pk { 
+            background: rgba(241, 196, 15, 0.3); 
+            border-left-color: #f1c40f; 
+        }
+        .fk { 
+            background: rgba(52, 152, 219, 0.3); 
+            border-left-color: #3498db; 
+        }
+        .type { 
+            background: rgba(46, 204, 113, 0.3); 
+            border-left-color: #2ecc71; 
+        }
+        .purpose { 
+            background: rgba(155, 89, 182, 0.3); 
+            border-left-color: #9b59b6; 
+        }
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+        .btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .btn:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        .progress-section {
+            text-align: center;
+            margin: 25px 0;
+        }
+        .progress {
+            width: 100%;
+            height: 12px;
+            background: #ecf0f1;
+            border-radius: 6px;
+            margin: 15px 0;
+            overflow: hidden;
+        }
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.4s ease;
+            border-radius: 6px;
+        }
+        .progress-text {
+            font-size: 1.1em;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .stat-card {
+            background: linear-gradient(135deg, #ecf0f1 0%, #bdc3c7 100%);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+        .stat-number {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        .stat-label {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        .keyboard-help {
+            background: rgba(52, 152, 219, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px 0;
+            text-align: center;
+            color: #2c3e50;
+        }
+        .key {
+            background: #3498db;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            margin: 0 2px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧠 Business Central - 50 Core Tables</h1>
+        
+        <div class="filter-section">
+            <button class="filter-btn active" onclick="filterCards('all')">🎯 Todas (50)</button>
+            <button class="filter-btn" onclick="filterCards('master')">🟢 Maestras (15)</button>
+            <button class="filter-btn" onclick="filterCards('document')">🔵 Documentos (20)</button>
+            <button class="filter-btn" onclick="filterCards('entry')">🔴 Entries (10)</button>
+            <button class="filter-btn" onclick="filterCards('setup')">⚙️ Setup (5)</button>
+        </div>
+        
+        <div class="stats">
+            <div class="stat-card">
+                <div class="stat-number" id="currentIndex">1</div>
+                <div class="stat-label">Actual</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="totalCards">50</div>
+                <div class="stat-label">Total</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="studiedCount">0</div>
+                <div class="stat-label">Estudiadas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="remainingCount">50</div>
+                <div class="stat-label">Restantes</div>
+            </div>
+        </div>
+        
+        <div class="progress-section">
+            <div class="progress">
+                <div class="progress-bar" id="progressBar" style="width: 2%"></div>
+            </div>
+            <div class="progress-text" id="progressText">Customer (18) - Tabla Maestra</div>
+        </div>
+        
+        <div class="flashcard">
+            <div class="card" id="flashcard" onclick="flipCard()">
+                <div class="card-face card-front">
+                    <div class="table-name" id="tableName">Customer</div>
+                    <div class="table-number" id="tableNumber">(18)</div>
+                    <div class="table-category" id="tableCategory">Tabla Maestra</div>
+                </div>
+                <div class="card-face card-back">
+                    <div class="answer" id="answer">
+                        <div class="answer-item pk">🔑 <strong>PK:</strong> No.</div>
+                        <div class="answer-item fk">🔗 <strong>Used in:</strong> Sales Header.Sell-to Customer No., Cust. Ledger Entry.Customer No.</div>
+                        <div class="answer-item type">📊 <strong>Type:</strong> Master Table</div>
+                        <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Customer master data - names, addresses, credit limits, posting groups</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button class="btn" onclick="prevCard()">⬅️ Anterior</button>
+            <button class="btn" onclick="flipCard()">🔄 Voltear</button>
+            <button class="btn" onclick="nextCard()">Siguiente ➡️</button>
+        </div>
+        
+        <div class="controls">
+            <button class="btn" onclick="shuffleCards()">🎲 Aleatorio</button>
+            <button class="btn" onclick="resetProgress()">🔄 Reiniciar</button>
+            <button class="btn" onclick="markStudied()">✅ Estudiada</button>
+        </div>
+        
+        <div class="keyboard-help">
+            <strong>⌨️ Atajos de teclado:</strong> 
+            <span class="key">←</span> Anterior | 
+            <span class="key">→</span> Siguiente | 
+            <span class="key">Espacio</span> Voltear | 
+            <span class="key">S</span> Aleatorio | 
+            <span class="key">Enter</span> Estudiada
+        </div>
+    </div>
+
+    <script>
+        const allFlashcards = [
+            // MAESTRAS (15)
+            {
+                name: "Customer", number: "(18)", category: "master", type: "Tabla Maestra",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> No.</div>
+                    <div class="answer-item fk">🔗 <strong>Used in:</strong> Sales Header.Sell-to Customer No., Cust. Ledger Entry.Customer No.</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Master Table</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Customer master data - names, addresses, credit limits, posting groups</div>
+                `
+            },
+            {
+                name: "Vendor", number: "(23)", category: "master", type: "Tabla Maestra",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> No.</div>
+                    <div class="answer-item fk">🔗 <strong>Used in:</strong> Purchase Header.Buy-from Vendor No., Vendor Ledger Entry.Vendor No.</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Master Table</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Vendor master data - payment terms, addresses, posting groups</div>
+                `
+            },
+            {
+                name: "Item", number: "(27)", category: "master", type: "Tabla Maestra",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> No.</div>
+                    <div class="answer-item fk">🔗 <strong>Used in:</strong> Sales Line.No., Purchase Line.No., Item Ledger Entry.Item No.</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Master Table</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Products/services - pricing, costing, inventory management</div>
+                `
+            },
+            {
+                name: "Location", number: "(14)", category: "master", type: "Tabla Maestra",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Code</div>
+                    <div class="answer-item fk">🔗 <strong>Used in:</strong> Documents Headers/Lines, Item Ledger Entry.Location Code</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Master Table</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Warehouses/locations for inventory management</div>
+                `
+            },
+            {
+                name: "G/L Account", number: "(15)", category: "master", type: "Tabla Maestra",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> No.</div>
+                    <div class="answer-item fk">🔗 <strong>Used in:</strong> G/L Entry.G/L Account No., Journal Lines.Account No.</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Master Table (Chart of Accounts)</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Chart of accounts for financial reporting</div>
+                `
+            },
+            {
+                name: "Employee", number: "(5200)", category: "master", type: "Tabla Maestra",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> No.</div>
+                    <div class="answer-item fk">🔗 <strong>Used in:</strong> Salesperson/Purchaser, Payroll entries</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Master Table</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Employee master data for HR and payroll</div>
+                `
+            },
+            {
+                name: "Contact", number: "(5050)", category: "master", type: "Tabla Maestra",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> No.</div>
+                    <div class="answer-item fk">🔗 <strong>Related:</strong> Customer, Vendor (CRM integration)</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Master Table (CRM)</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Contact management and CRM functionality</div>
+                `
+            },
+            {
+                name: "Currency", number: "(4)", category: "master", type: "Tabla Maestra",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Code</div>
+                    <div class="answer-item fk">🔗 <strong>Used in:</strong> Customer, Vendor, Documents for foreign currency</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Master Table</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Multi-currency support and exchange rates</div>
+                `
+            },
+            {
+                name: "Country/Region", number: "(9)", category: "master", type: "Tabla Maestra",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Code</div>
+                    <div class="answer-item fk">🔗 <strong>Used in:</strong> Customer, Vendor for address validation</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Master Table</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Country codes for addresses and tax calculation</div>
+                `
+            },
+            {
+                name: "Item Category", number: "(5722)", category: "master", type: "Tabla Maestra",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Code</div>
+                    <div class="answer-item fk">🔗 <strong>Used in:</strong> Item.Item Category Code</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Master Table</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Item classification and reporting grouping</div>
+                `
+            },
+            {
+                name: "Dimension", number: "(348)", category: "master", type: "Tabla Maestra",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Code</div>
+                    <div class="answer-item fk">🔗 <strong>Used in:</strong> Dimension Value, analytical reporting</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Master Table</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Financial dimensions for analytical accounting</div>
+                `
+            },
+            {
+                name: "Dimension Value", number: "(349)", category: "master", type: "Tabla Maestra",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Dimension Code + Code</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Dimension Code → Dimension</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Master Table</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Values for dimensions (departments, projects, etc.)</div>
+                `
+            },
+            {
+                name: "Customer Posting Group", number: "(92)", category: "master", type: "Setup/Master",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Code</div>
+                    <div class="answer-item fk">🔗 <strong>Used in:</strong> Customer for accounting setup</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Setup/Master Table</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> G/L accounts mapping for customer transactions</div>
+                `
+            },
+            {
+                name: "Vendor Posting Group", number: "(93)", category: "master", type: "Setup/Master",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Code</div>
+                    <div class="answer-item fk">🔗 <strong>Used in:</strong> Vendor for accounting setup</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Setup/Master Table</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> G/L accounts mapping for vendor transactions</div>
+                `
+            },
+            {
+                name: "Item Posting Group", number: "(94)", category: "master", type: "Setup/Master",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Code</div>
+                    <div class="answer-item fk">🔗 <strong>Used in:</strong> Item for accounting setup</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Setup/Master Table</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> G/L accounts mapping for inventory transactions</div>
+                `
+            },
+
+            // DOCUMENTOS (20)
+            {
+                name: "Sales Header", number: "(36)", category: "document", type: "Documento",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Document Type + No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Sell-to Customer No. → Customer, Location Code → Location</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Document Header</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Sales document headers (quotes, orders, invoices)</div>
+                `
+            },
+            {
+                name: "Sales Line", number: "(37)", category: "document", type: "Documento Línea",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Document Type + Document No. + Line No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Document → Sales Header, No. → Item (Type=Item)</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Document Line</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Detail lines for sales documents</div>
+                `
+            },
+            {
+                name: "Purchase Header", number: "(38)", category: "document", type: "Documento",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Document Type + No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Buy-from Vendor No. → Vendor, Location Code → Location</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Document Header</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Purchase document headers (quotes, orders, invoices)</div>
+                `
+            },
+            {
+                name: "Purchase Line", number: "(39)", category: "document", type: "Documento Línea",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Document Type + Document No. + Line No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Document → Purchase Header, No. → Item (Type=Item)</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Document Line</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Detail lines for purchase documents</div>
+                `
+            },
+            {
+                name: "Item Journal Line", number: "(83)", category: "document", type: "Journal",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Journal Template + Journal Batch + Line No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Item No. → Item, Location Code → Location</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Journal Document</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Inventory adjustments and movements</div>
+                `
+            },
+            {
+                name: "Gen. Journal Line", number: "(81)", category: "document", type: "Journal",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Journal Template + Journal Batch + Line No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Account No. → G/L Account, Customer/Vendor</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Journal Document</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> General ledger and subsidiary ledger entries</div>
+                `
+            },
+            {
+                name: "Posted Sales Invoice Header", number: "(112)", category: "document", type: "Posted Document",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Sell-to Customer No. → Customer</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Posted Document</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Historical record of posted sales invoices</div>
+                `
+            },
+            {
+                name: "Posted Sales Invoice Line", number: "(113)", category: "document", type: "Posted Document",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Document No. + Line No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> No. → Item</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Posted Document Line</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Detail lines of posted sales invoices</div>
+                `
+            },
+            {
+                name: "Posted Purch. Invoice Header", number: "(122)", category: "document", type: "Posted Document",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Buy-from Vendor No. → Vendor</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Posted Document</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Historical record of posted purchase invoices</div>
+                `
+            },
+            {
+                name: "Posted Purch. Invoice Line", number: "(123)", category: "document", type: "Posted Document",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Document No. + Line No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> No. → Item</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Posted Document Line</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Detail lines of posted purchase invoices</div>
+                `
+            },
+            {
+                name: "Transfer Header", number: "(5740)", category: "document", type: "Documento",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Transfer-from Code → Location, Transfer-to Code → Location</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Document Header</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Inter-location inventory transfers</div>
+                `
+            },
+            {
+                name: "Transfer Line", number: "(5741)", category: "document", type: "Documento Línea",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Document No. + Line No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Item No. → Item</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Document Line</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Detail lines for transfer orders</div>
+                `
+            },
+            {
+                name: "Job", number: "(167)", category: "document", type: "Master/Document",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Bill-to Customer No. → Customer</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Master/Document</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Project management and job costing</div>
+                `
+            },
+            {
+                name: "Job Task", number: "(1001)", category: "document", type: "Master/Document",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Job No. + Job Task No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Job No. → Job</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Master/Document</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Work breakdown structure for jobs</div>
+                `
+            },
+            {
+                name: "Job Planning Line", number: "(1003)", category: "document", type: "Planning Document",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Job No. + Job Task No. + Line No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Job No. → Job, No. → Item/Resource</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Planning Document</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Job budget and planning lines</div>
+                `
+            },
+            {
+                name: "Assembly Header", number: "(900)", category: "document", type: "Documento",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Document Type + No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Item No. → Item, Location Code → Location</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Document Header</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Assembly orders for kit items</div>
+                `
+            },
+            {
+                name: "Assembly Line", number: "(901)", category: "document", type: "Documento Línea",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Document Type + Document No. + Line No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> No. → Item (component)</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Document Line</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Components needed for assembly</div>
+                `
+            },
+            {
+                name: "Production Order", number: "(5405)", category: "document", type: "Documento",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Status + No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Source No. → Item, Location Code → Location</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Document Header</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Manufacturing orders and production</div>
+                `
+            },
+            {
+                name: "Prod. Order Line", number: "(5406)", category: "document", type: "Documento Línea",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Status + Prod. Order No. + Line No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Item No. → Item</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Document Line</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Items to be produced in production order</div>
+                `
+            },
+            {
+                name: "Consumption Journal Line", number: "(83)", category: "document", type: "Journal",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Journal Template + Journal Batch + Line No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Item No. → Item, Prod. Order No. → Production Order</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Journal Document</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Record material consumption in production</div>
+                `
+            },
+
+            // ENTRIES (10)
+            {
+                name: "Item Ledger Entry", number: "(32)", category: "entry", type: "Ledger Entry",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Entry No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Item No. → Item, Location Code → Location</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Ledger Entry</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> All inventory movements and quantity tracking</div>
+                `
+            },
+            {
+                name: "Cust. Ledger Entry", number: "(21)", category: "entry", type: "Ledger Entry",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Entry No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Customer No. → Customer</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Ledger Entry</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Customer transaction history and balances</div>
+                `
+            },
+            {
+                name: "Vendor Ledger Entry", number: "(25)", category: "entry", type: "Ledger Entry",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Entry No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Vendor No. → Vendor</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Ledger Entry</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Vendor transaction history and balances</div>
+                `
+            },
+            {
+                name: "G/L Entry", number: "(17)", category: "entry", type: "Ledger Entry",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Entry No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> G/L Account No. → G/L Account</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Ledger Entry</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> All financial transactions and accounting entries</div>
+                `
+            },
+            {
+                name: "Job Ledger Entry", number: "(169)", category: "entry", type: "Ledger Entry",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Entry No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Job No. → Job, Job Task No. → Job Task</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Ledger Entry</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Job/project cost and revenue tracking</div>
+                `
+            },
+            {
+                name: "Item Application Entry", number: "(339)", category: "entry", type: "Application Entry",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Entry No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Inbound Item Entry No. → Item Ledger Entry, Outbound Item Entry No. → Item Ledger Entry</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Application Entry</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Links between inventory increases and decreases</div>
+                `
+            },
+            {
+                name: "Detailed Cust. Ledg. Entry", number: "(379)", category: "entry", type: "Detailed Entry",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Entry No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Cust. Ledger Entry No. → Cust. Ledger Entry</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Detailed Entry</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Detailed breakdown of customer entries (discounts, applications)</div>
+                `
+            },
+            {
+                name: "Detailed Vendor Ledg. Entry", number: "(380)", category: "entry", type: "Detailed Entry",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Entry No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Vendor Ledger Entry No. → Vendor Ledger Entry</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Detailed Entry</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Detailed breakdown of vendor entries (discounts, applications)</div>
+                `
+            },
+            {
+                name: "Value Entry", number: "(5802)", category: "entry", type: "Valuation Entry",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Entry No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Item Ledger Entry No. → Item Ledger Entry</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Valuation Entry</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Cost valuation of inventory movements</div>
+                `
+            },
+            {
+                name: "Capacity Ledger Entry", number: "(5832)", category: "entry", type: "Ledger Entry",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Entry No.</div>
+                    <div class="answer-item fk">🔗 <strong>FK:</strong> Work Center No./Machine Center No.</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Ledger Entry</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Production capacity and time tracking</div>
+                `
+            },
+
+            // SETUP (5)
+            {
+                name: "General Ledger Setup", number: "(98)", category: "setup", type: "Setup Table",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Primary Key (singleton)</div>
+                    <div class="answer-item fk">🔗 <strong>Related:</strong> Company-wide accounting configuration</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Setup Table</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Global accounting settings, number series, posting setup</div>
+                `
+            },
+            {
+                name: "Sales & Receivables Setup", number: "(311)", category: "setup", type: "Setup Table",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Primary Key (singleton)</div>
+                    <div class="answer-item fk">🔗 <strong>Related:</strong> Sales module configuration</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Setup Table</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Sales defaults, number series, credit warnings</div>
+                `
+            },
+            {
+                name: "Purchases & Payables Setup", number: "(312)", category: "setup", type: "Setup Table",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Primary Key (singleton)</div>
+                    <div class="answer-item fk">🔗 <strong>Related:</strong> Purchase module configuration</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Setup Table</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Purchase defaults, number series, approval workflows</div>
+                `
+            },
+            {
+                name: "Inventory Setup", number: "(313)", category: "setup", type: "Setup Table",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> Primary Key (singleton)</div>
+                    <div class="answer-item fk">🔗 <strong>Related:</strong> Inventory module configuration</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Setup Table</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> Inventory costing, locations, automatic cost posting</div>
+                `
+            },
+            {
+                name: "User Setup", number: "(91)", category: "setup", type: "Setup Table",
+                answer: `
+                    <div class="answer-item pk">🔑 <strong>PK:</strong> User ID</div>
+                    <div class="answer-item fk">🔗 <strong>Related:</strong> User permissions and limits</div>
+                    <div class="answer-item type">📊 <strong>Type:</strong> Setup Table</div>
+                    <div class="answer-item purpose">🎯 <strong>Purpose:</strong> User-specific settings, limits, and access rights</div>
+                `
+            }
+        ];
+
+        let currentCards = [...allFlashcards];
+        let currentIndex = 0;
+        let isFlipped = false;
+        let studiedCards = new Set();
+
+        function updateCard() {
+            if (currentCards.length === 0) return;
+            
+            const card = currentCards[currentIndex];
+            document.getElementById('tableName').textContent = card.name;
+            document.getElementById('tableNumber').textContent = card.number;
+            document.getElementById('tableCategory').textContent = card.type;
+            document.getElementById('answer').innerHTML = card.answer;
+            
+            // Update progress
+            const progress = ((currentIndex + 1) / currentCards.length) * 100;
+            document.getElementById('progressBar').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `${card.name} ${card.number} - ${card.type}`;
+            
+            // Update stats
+            document.getElementById('currentIndex').textContent = currentIndex + 1;
+            document.getElementById('totalCards').textContent = currentCards.length;
+            document.getElementById('studiedCount').textContent = studiedCards.size;
+            document.getElementById('remainingCount').textContent = currentCards.length - studiedCards.size;
+            
+            // Reset flip state
+            if (isFlipped) {
+                document.getElementById('flashcard').classList.remove('flipped');
+                isFlipped = false;
+            }
+        }
+
+        function flipCard() {
+            const flashcard = document.getElementById('flashcard');
+            flashcard.classList.toggle('flipped');
+            isFlipped = !isFlipped;
+        }
+
+        function nextCard() {
+            currentIndex = (currentIndex + 1) % currentCards.length;
+            updateCard();
+        }
+
+        function prevCard() {
+            currentIndex = (currentIndex - 1 + currentCards.length) % currentCards.length;
+            updateCard();
+        }
+
+        function shuffleCards() {
+            for (let i = currentCards.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [currentCards[i], currentCards[j]] = [currentCards[j], currentCards[i]];
+            }
+            currentIndex = 0;
+            updateCard();
+        }
+
+        function resetProgress() {
+            currentIndex = 0;
+            studiedCards.clear();
+            updateCard();
+        }
+
+        function markStudied() {
+            if (currentCards.length === 0) return;
+            const card = currentCards[currentIndex];
+            studiedCards.add(card.name);
+            updateCard();
+            nextCard();
+        }
+
+        function filterCards(category) {
+            // Update active filter button
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Filter cards
+            if (category === 'all') {
+                currentCards = [...allFlashcards];
+            } else {
+                currentCards = allFlashcards.filter(card => card.category === category);
+            }
+            
+            currentIndex = 0;
+            updateCard();
+        }
+
+        // Keyboard controls
+        document.addEventListener('keydown', function(event) {
+            switch(event.key) {
+                case 'ArrowLeft':
+                    prevCard();
+                    break;
+                case 'ArrowRight':
+                    nextCard();
+                    break;
+                case ' ':
+                    event.preventDefault();
+                    flipCard();
+                    break;
+                case 's':
+                case 'S':
+                    shuffleCards();
+                    break;
+                case 'Enter':
+                    markStudied();
+                    break;
+            }
+        });
+
+        // Initialize
+        updateCard();
+    </script>
+</body>
+</html>

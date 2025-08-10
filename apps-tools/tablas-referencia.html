@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>BC 50 Core Tables</title>
+    <style>
+        body { 
+            font-family: 'Segoe UI', sans-serif; 
+            margin: 0; 
+            padding: 15px; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .container { 
+            max-width: 1600px; 
+            margin: 0 auto; 
+            background: white; 
+            border-radius: 15px; 
+            padding: 25px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        h1 { 
+            text-align: center; 
+            color: #2c3e50; 
+            margin-bottom: 20px;
+            font-size: 2.2em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .tabs {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 25px;
+            gap: 10px;
+        }
+        .tab {
+            padding: 12px 24px;
+            background: #ecf0f1;
+            border: none;
+            border-radius: 25px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #2c3e50;
+        }
+        .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: scale(1.05);
+        }
+        .tab:hover {
+            transform: scale(1.02);
+        }
+        .diagram-section {
+            display: none;
+            margin-bottom: 30px;
+        }
+        .diagram-section.active {
+            display: block;
+        }
+        svg { 
+            width: 100%; 
+            height: 800px; 
+            border: 2px solid #bdc3c7; 
+            border-radius: 10px;
+            background: linear-gradient(45deg, #f8f9fa 25%, transparent 25%), 
+                        linear-gradient(-45deg, #f8f9fa 25%, transparent 25%);
+            background-size: 20px 20px;
+        }
+        
+        /* Estilos de tablas */
+        .master { fill: #27ae60; stroke: #229954; stroke-width: 2; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3)); }
+        .document { fill: #3498db; stroke: #2980b9; stroke-width: 2; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3)); }
+        .entry { fill: #e74c3c; stroke: #c0392b; stroke-width: 2; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3)); }
+        .setup { fill: #9b59b6; stroke: #8e44ad; stroke-width: 2; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3)); }
+        .posted { fill: #f39c12; stroke: #e67e22; stroke-width: 2; filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3)); }
+        
+        .table-text { fill: white; font-size: 10px; text-anchor: middle; font-weight: bold; }
+        .table-number { fill: #f1c40f; font-size: 8px; text-anchor: middle; font-weight: bold; }
+        .connection { stroke: #7f8c8d; stroke-width: 1.5; opacity: 0.6; marker-end: url(#arrow); }
+        
+        .legend-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .legend-circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid;
+        }
+        .legend-master { background: #27ae60; border-color: #229954; }
+        .legend-document { background: #3498db; border-color: #2980b9; }
+        .legend-entry { background: #e74c3c; border-color: #c0392b; }
+        .legend-setup { background: #9b59b6; border-color: #8e44ad; }
+        .legend-posted { background: #f39c12; border-color: #e67e22; }
+        
+        .table-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .table-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            transition: transform 0.2s ease;
+        }
+        .table-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .card-title {
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+        .card-content {
+            font-size: 13px;
+            line-height: 1.4;
+            color: #5a6c7d;
+        }
+        .pk { color: #f39c12; font-weight: bold; }
+        .fk { color: #3498db; font-weight: bold; }
+        .type { color: #27ae60; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Business Central - 50 Tablas CORE</h1>
+        
+        <div class="tabs">
+            <button class="tab active" onclick="showSection('overview')">📊 Visión General</button>
+            <button class="tab" onclick="showSection('sales')">💰 Sales & CRM</button>
+            <button class="tab" onclick="showSection('purchase')">🛒 Purchase</button>
+            <button class="tab" onclick="showSection('inventory')">📦 Inventory</button>
+            <button class="tab" onclick="showSection('finance')">💳 Finance</button>
+            <button class="tab" onclick="showSection('setup')">⚙️ Setup</button>
+        </div>
+
+        <!-- OVERVIEW SECTION -->
+        <div id="overview" class="diagram-section active">
+            <div class="legend-container">
+                <div class="legend-item">
+                    <div class="legend-circle legend-master"></div>
+                    <span>Maestras (15)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-circle legend-document"></div>
+                    <span>Documentos (20)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-circle legend-entry"></div>
+                    <span>Entries (10)</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-circle legend-setup"></div>
+                    <span>Setup (5)</span>
+                </div>
+            </div>
+            
+            <svg viewBox="0 0 1400 700">
+                <defs>
+                    <marker id="arrow" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                        <polygon points="0 0, 8 3, 0 6" fill="#7f8c8d"/>
+                    </marker>
+                </defs>
+                
+                <!-- MAESTRAS CORE -->
+                <g class="area-title">
+                    <text x="150" y="30" font-size="16" font-weight="bold" fill="#27ae60">MAESTRAS CORE</text>
+                </g>
+                
+                <!-- Row 1 -->
+                <rect class="master" x="50" y="50" width="80" height="60" rx="8"/>
+                <text class="table-text" x="90" y="70">Customer</text>
+                <text class="table-number" x="90" y="95">(18)</text>
+                
+                <rect class="master" x="150" y="50" width="80" height="60" rx="8"/>
+                <text class="table-text" x="190" y="70">Vendor</text>
+                <text class="table-number" x="190" y="95">(23)</text>
+                
+                <rect class="master" x="250" y="50" width="80" height="60" rx="8"/>
+                <text class="table-text" x="290" y="70">Item</text>
+                <text class="table-number" x="290" y="95">(27)</text>
+                
+                <rect class="master" x="350" y="50" width="80" height="60" rx="8"/>
+                <text class="table-text" x="390" y="70">Location</text>
+                <text class="table-number" x="390" y="95">(14)</text>
+                
+                <rect class="master" x="450" y="50" width="80" height="60" rx="8"/>
+                <text class="table-text" x="490" y="65">G/L Account</text>
+                <text class="table-number" x="490" y="95">(15)</text>
+                
+                <!-- Row 2 -->
+                <rect class="master" x="50" y="130" width="80" height="60" rx="8"/>
+                <text class="table-text" x="90" y="150">Employee</text>
+                <text class="table-number" x="90" y="175">(5200)</text>
+                
+                <rect class="master" x="150" y="130" width="80" height="60" rx="8"/>
+                <text class="table-text" x="190" y="150">Contact</text>
+                <text class="table-number" x="190" y="175">(5050)</text>
+                
+                <rect class="master" x="250" y="130" width="80" height="60" rx="8"/>
+                <text class="table-text" x="290" y="150">Currency</text>
+                <text class="table-number" x="290" y="175">(4)</text>
+                
+                <rect class="master" x="350" y="130" width="80" height="60" rx="8"/>
+                <text class="table-text" x="390" y="145">Country/</text>
+                <text class="table-text" x="390" y="160">Region</text>
+                <text class="table-number" x="390" y="175">(9)</text>
+                
+                <rect class="master" x="450" y="130" width="80" height="60" rx="8"/>
+                <text class="table-text" x="490" y="145">Item</text>
+                <text class="table-text" x="490" y="160">Category</text>
+                <text class="table-number" x="490" y="175">(5722)</text>
+                
+                <!-- DOCUMENTOS CORE -->
+                <g class="area-title">
+                    <text x="650" y="30" font-size="16" font-weight="bold" fill="#3498db">DOCUMENTOS CORE</text>
+                </g>
+                
+                <!-- Sales Documents -->
+                <rect class="document" x="600" y="50" width="90" height="60" rx="8"/>
+                <text class="table-text" x="645" y="70">Sales Header</text>
+                <text class="table-number" x="645" y="95">(36)</text>
+                
+                <rect class="document" x="710" y="50" width="90" height="60" rx="8"/>
+                <text class="table-text" x="755" y="70">Sales Line</text>
+                <text class="table-number" x="755" y="95">(37)</text>
+                
+                <!-- Purchase Documents -->
+                <rect class="document" x="600" y="130" width="90" height="60" rx="8"/>
+                <text class="table-text" x="645" y="145">Purchase</text>
+                <text class="table-text" x="645" y="160">Header</text>
+                <text class="table-number" x="645" y="175">(38)</text>
+                
+                <rect class="document" x="710" y="130" width="90" height="60" rx="8"/>
+                <text class="table-text" x="755" y="145">Purchase</text>
+                <text class="table-text" x="755" y="160">Line</text>
+                <text class="table-number" x="755" y="175">(39)</text>
+                
+                <!-- Journals -->
+                <rect class="document" x="600" y="210" width="90" height="60" rx="8"/>
+                <text class="table-text" x="645" y="225">Item Journal</text>
+                <text class="table-text" x="645" y="240">Line</text>
+                <text class="table-number" x="645" y="255">(83)</text>
+                
+                <rect class="document" x="710" y="210" width="90" height="60" rx="8"/>
+                <text class="table-text" x="755" y="225">Gen. Journal</text>
+                <text class="table-text" x="755" y="240">Line</text>
+                <text class="table-number" x="755" y="255">(81)</text>
+                
+                <!-- Jobs & Production -->
+                <rect class="document" x="600" y="290" width="90" height="60" rx="8"/>
+                <text class="table-text" x="645" y="310">Job</text>
+                <text class="table-number" x="645" y="335">(167)</text>
+                
+                <rect class="document" x="710" y="290" width="90" height="60" rx="8"/>
+                <text class="table-text" x="755" y="305">Production</text>
+                <text class="table-text" x="755" y="320">Order</text>
+                <text class="table-number" x="755" y="335">(5405)</text>
+                
+                <!-- ENTRIES -->
+                <g class="area-title">
+                    <text x="950" y="30" font-size="16" font-weight="bold" fill="#e74c3c">ENTRIES</text>
+                </g>
+                
+                <rect class="entry" x="900" y="50" width="90" height="60" rx="8"/>
+                <text class="table-text" x="945" y="65">Item Ledger</text>
+                <text class="table-text" x="945" y="80">Entry</text>
+                <text class="table-number" x="945" y="95">(32)</text>
+                
+                <rect class="entry" x="1010" y="50" width="90" height="60" rx="8"/>
+                <text class="table-text" x="1055" y="65">Cust. Ledger</text>
+                <text class="table-text" x="1055" y="80">Entry</text>
+                <text class="table-number" x="1055" y="95">(21)</text>
+                
+                <rect class="entry" x="900" y="130" width="90" height="60" rx="8"/>
+                <text class="table-text" x="945" y="145">Vendor Ledger</text>
+                <text class="table-text" x="945" y="160">Entry</text>
+                <text class="table-number" x="945" y="175">(25)</text>
+                
+                <rect class="entry" x="1010" y="130" width="90" height="60" rx="8"/>
+                <text class="table-text" x="1055" y="150">G/L Entry</text>
+                <text class="table-number" x="1055" y="175">(17)</text>
+                
+                <rect class="entry" x="900" y="210" width="90" height="60" rx="8"/>
+                <text class="table-text" x="945" y="230">Value Entry</text>
+                <text class="table-number" x="945" y="255">(5802)</text>
+                
+                <rect class="entry" x="1010" y="210" width="90" height="60" rx="8"/>
+                <text class="table-text" x="1055" y="225">Job Ledger</text>
+                <text class="table-text" x="1055" y="240">Entry</text>
+                <text class="table-number" x="1055" y="255">(169)</text>
+                
+                <!-- SETUP -->
+                <g class="area-title">
+                    <text x="1200" y="30" font-size="16" font-weight="bold" fill="#9b59b6">SETUP</text>
+                </g>
+                
+                <rect class="setup" x="1150" y="50" width="90" height="60" rx="8"/>
+                <text class="table-text" x="1195" y="65">General Ledger</text>
+                <text class="table-text" x="1195" y="80">Setup</text>
+                <text class="table-number" x="1195" y="95">(98)</text>
+                
+                <rect class="setup" x="1150" y="130" width="90" height="60" rx="8"/>
+                <text class="table-text" x="1195" y="145">Sales & Receiv.</text>
+                <text class="table-text" x="1195" y="160">Setup</text>
+                <text class="table-number" x="1195" y="175">(311)</text>
+                
+                <rect class="setup" x="1150" y="210" width="90" height="60" rx="8"/>
+                <text class="table-text" x="1195" y="225">Inventory</text>
+                <text class="table-text" x="1195" y="240">Setup</text>
+                <text class="table-number" x="1195" y="255">(313)</text>
+                
+                <!-- Key Connections -->
+                <line class="connection" x1="130" y1="80" x2="600" y2="80"/>
+                <line class="connection" x1="230" y1="80" x2="600" y2="160"/>
+                <line class="connection" x1="330" y1="80" x2="710" y2="80"/>
+                <line class="connection" x1="330" y1="80" x2="710" y2="160"/>
+                <line class="connection" x1="800" y1="80" x2="900" y2="80"/>
+                <line class="connection" x1="800" y1="160" x2="900" y2="160"/>
+            </svg>
+        </div>
+
+        <!-- SALES SECTION -->
+        <div id="sales" class="diagram-section">
+            <h3 style="color: #3498db; text-align: center;">💰 SALES & CRM (12 tablas)</h3>
+            <div class="table-grid">
+                <div class="table-card">
+                    <div class="card-title">Customer (18)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> No.<br>
+                        <span class="fk">Used in:</span> Sales Header, Cust. Ledger Entry<br>
+                        <span class="type">Type:</span> Master Table
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Sales Header (36)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Document Type + No.<br>
+                        <span class="fk">FK:</span> Sell-to Customer No. → Customer<br>
+                        <span class="type">Type:</span> Document
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Sales Line (37)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Document Type + Document No. + Line No.<br>
+                        <span class="fk">FK:</span> No. → Item (when Type=Item)<br>
+                        <span class="type">Type:</span> Document Line
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Posted Sales Invoice Header (112)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> No.<br>
+                        <span class="fk">FK:</span> Sell-to Customer No. → Customer<br>
+                        <span class="type">Type:</span> Posted Document
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Posted Sales Invoice Line (113)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Document No. + Line No.<br>
+                        <span class="fk">FK:</span> No. → Item<br>
+                        <span class="type">Type:</span> Posted Document Line
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Contact (5050)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> No.<br>
+                        <span class="fk">Related:</span> Customer, Vendor<br>
+                        <span class="type">Type:</span> Master Table (CRM)
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Customer Posting Group (92)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Code<br>
+                        <span class="fk">Used in:</span> Customer<br>
+                        <span class="type">Type:</span> Setup/Master
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Cust. Ledger Entry (21)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Entry No.<br>
+                        <span class="fk">FK:</span> Customer No. → Customer<br>
+                        <span class="type">Type:</span> Ledger Entry
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Detailed Cust. Ledg. Entry (379)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Entry No.<br>
+                        <span class="fk">FK:</span> Cust. Ledger Entry No.<br>
+                        <span class="type">Type:</span> Detailed Entry
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Sales Shipment Header (110)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> No.<br>
+                        <span class="fk">FK:</span> Sell-to Customer No.<br>
+                        <span class="type">Type:</span> Posted Document
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Sales Shipment Line (111)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Document No. + Line No.<br>
+                        <span class="fk">FK:</span> No. → Item<br>
+                        <span class="type">Type:</span> Posted Document Line
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Salesperson/Purchaser (13)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Code<br>
+                        <span class="fk">Used in:</span> Customer, Sales Header<br>
+                        <span class="type">Type:</span> Master Table
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PURCHASE SECTION -->
+        <div id="purchase" class="diagram-section">
+            <h3 style="color: #e67e22; text-align: center;">🛒 PURCHASE (10 tablas)</h3>
+            <div class="table-grid">
+                <div class="table-card">
+                    <div class="card-title">Vendor (23)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> No.<br>
+                        <span class="fk">Used in:</span> Purchase Header, Vendor Ledger Entry<br>
+                        <span class="type">Type:</span> Master Table
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Purchase Header (38)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Document Type + No.<br>
+                        <span class="fk">FK:</span> Buy-from Vendor No. → Vendor<br>
+                        <span class="type">Type:</span> Document
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Purchase Line (39)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Document Type + Document No. + Line No.<br>
+                        <span class="fk">FK:</span> No. → Item (when Type=Item)<br>
+                        <span class="type">Type:</span> Document Line
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Posted Purch. Invoice Header (122)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> No.<br>
+                        <span class="fk">FK:</span> Buy-from Vendor No. → Vendor<br>
+                        <span class="type">Type:</span> Posted Document
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Posted Purch. Invoice Line (123)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Document No. + Line No.<br>
+                        <span class="fk">FK:</span> No. → Item<br>
+                        <span class="type">Type:</span> Posted Document Line
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Vendor Posting Group (93)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Code<br>
+                        <span class="fk">Used in:</span> Vendor<br>
+                        <span class="type">Type:</span> Setup/Master
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Vendor Ledger Entry (25)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Entry No.<br>
+                        <span class="fk">FK:</span> Vendor No. → Vendor<br>
+                        <span class="type">Type:</span> Ledger Entry
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Detailed Vendor Ledg. Entry (380)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Entry No.<br>
+                        <span class="fk">FK:</span> Vendor Ledger Entry No.<br>
+                        <span class="type">Type:</span> Detailed Entry
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Purch. Receipt Header (120)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> No.<br>
+                        <span class="fk">FK:</span> Buy-from Vendor No.<br>
+                        <span class="type">Type:</span> Posted Document
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Purch. Receipt Line (121)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Document No. + Line No.<br>
+                        <span class="fk">FK:</span> No. → Item<br>
+                        <span class="type">Type:</span> Posted Document Line
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- INVENTORY SECTION -->
+        <div id="inventory" class="diagram-section">
+            <h3 style="color: #27ae60; text-align: center;">📦 INVENTORY (12 tablas)</h3>
+            <div class="table-grid">
+                <div class="table-card">
+                    <div class="card-title">Item (27)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> No.<br>
+                        <span class="fk">Used in:</span> Sales/Purchase Lines, Item Ledger Entry<br>
+                        <span class="type">Type:</span> Master Table
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Location (14)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Code<br>
+                        <span class="fk">Used in:</span> Items, Documents, Entries<br>
+                        <span class="type">Type:</span> Master Table
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Item Category (5722)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Code<br>
+                        <span class="fk">Used in:</span> Item<br>
+                        <span class="type">Type:</span> Master Table
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Item Posting Group (94)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Code<br>
+                        <span class="fk">Used in:</span> Item<br>
+                        <span class="type">Type:</span> Setup/Master
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Item Journal Line (83)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Journal Template + Journal Batch + Line No.<br>
+                        <span class="fk">FK:</span> Item No. → Item<br>
+                        <span class="type">Type:</span> Journal Document
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Item Ledger Entry (32)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Entry No.<br>
+                        <span class="fk">FK:</span> Item No. → Item, Location Code → Location<br>
+                        <span class="type">Type:</span> Ledger Entry
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Value Entry (5802)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Entry No.<br>
+                        <span class="fk">FK:</span> Item Ledger Entry No.<br>
+                        <span class="type">Type:</span> Detailed Entry
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Item Application Entry (339)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Entry No.<br>
+                        <span class="fk">FK:</span> Inbound/Outbound Item Entry No.<br>
+                        <span class="type">Type:</span> Application Entry
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Transfer Header (5740)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> No.<br>
+                        <span class="fk">FK:</span> Transfer-from/to Code → Location<br>
+                        <span class="type">Type:</span> Document
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Transfer Line (5741)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Document No. + Line No.<br>
+                        <span class="fk">FK:</span> Item No. → Item<br>
+                        <span class="type">Type:</span> Document Line
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Warehouse Entry (7312)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Entry No.<br>
+                        <span class="fk">FK:</span> Item No. → Item, Location Code → Location<br>
+                        <span class="type">Type:</span> Warehouse Entry
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Bin (7354)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Location Code + Code<br>
+                        <span class="fk">FK:</span> Location Code → Location<br>
+                        <span class="type">Type:</span> Master Table
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FINANCE SECTION -->
+        <div id="finance" class="diagram-section">
+            <h3 style="color: #8e44ad; text-align: center;">💳 FINANCE (11 tablas)</h3>
+            <div class="table-grid">
+                <div class="table-card">
+                    <div class="card-title">G/L Account (15)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> No.<br>
+                        <span class="fk">Used in:</span> G/L Entry, Journal Lines<br>
+                        <span class="type">Type:</span> Master Table (Chart of Accounts)
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Gen. Journal Line (81)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Journal Template + Journal Batch + Line No.<br>
+                        <span class="fk">FK:</span> Account No. → G/L Account<br>
+                        <span class="type">Type:</span> Journal Document
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">G/L Entry (17)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Entry No.<br>
+                        <span class="fk">FK:</span> G/L Account No. → G/L Account<br>
+                        <span class="type">Type:</span> Ledger Entry
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Dimension (348)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Code<br>
+                        <span class="fk">Used in:</span> Dimension Value, Dimension Set Entry<br>
+                        <span class="type">Type:</span> Master Table
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Dimension Value (349)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Dimension Code + Code<br>
+                        <span class="fk">FK:</span> Dimension Code → Dimension<br>
+                        <span class="type">Type:</span> Master Table
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Currency (4)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Code<br>
+                        <span class="fk">Used in:</span> Customer, Vendor, Documents<br>
+                        <span class="type">Type:</span> Master Table
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Bank Account (270)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> No.<br>
+                        <span class="fk">Related:</span> Bank Account Ledger Entry<br>
+                        <span class="type">Type:</span> Master Table
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Bank Account Ledger Entry (271)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Entry No.<br>
+                        <span class="fk">FK:</span> Bank Account No. → Bank Account<br>
+                        <span class="type">Type:</span> Ledger Entry
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">VAT Entry (254)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Entry No.<br>
+                        <span class="fk">Related:</span> G/L Entry, Documents<br>
+                        <span class="type">Type:</span> Tax Entry
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">VAT Posting Setup (325)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> VAT Bus. Posting Group + VAT Prod. Posting Group<br>
+                        <span class="fk">Used in:</span> Documents, Items, Customers<br>
+                        <span class="type">Type:</span> Setup Table
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Payment Terms (3)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Code<br>
+                        <span class="fk">Used in:</span> Customer, Vendor, Documents<br>
+                        <span class="type">Type:</span> Master Table
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SETUP SECTION -->
+        <div id="setup" class="diagram-section">
+            <h3 style="color: #c0392b; text-align: center;">⚙️ SETUP & ADMINISTRATION (5 tablas)</h3>
+            <div class="table-grid">
+                <div class="table-card">
+                    <div class="card-title">General Ledger Setup (98)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Primary Key (singleton)<br>
+                        <span class="type">Type:</span> Setup Table<br>
+                        <span class="fk">Purpose:</span> Global accounting setup
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Sales & Receivables Setup (311)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Primary Key (singleton)<br>
+                        <span class="type">Type:</span> Setup Table<br>
+                        <span class="fk">Purpose:</span> Sales module configuration
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Purchases & Payables Setup (312)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Primary Key (singleton)<br>
+                        <span class="type">Type:</span> Setup Table<br>
+                        <span class="fk">Purpose:</span> Purchase module configuration
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">Inventory Setup (313)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> Primary Key (singleton)<br>
+                        <span class="type">Type:</span> Setup Table<br>
+                        <span class="fk">Purpose:</span> Inventory module configuration
+                    </div>
+                </div>
+                <div class="table-card">
+                    <div class="card-title">User Setup (91)</div>
+                    <div class="card-content">
+                        <span class="pk">PK:</span> User ID<br>
+                        <span class="type">Type:</span> Setup Table<br>
+                        <span class="fk">Purpose:</span> User permissions and limits
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            // Hide all sections
+            const sections = document.querySelectorAll('.diagram-section');
+            sections.forEach(section => section.classList.remove('active'));
+            
+            // Remove active class from tabs
+            const tabs = document.querySelectorAll('.tab');
+            tabs.forEach(tab => tab.classList.remove('active'));
+            
+            // Show selected section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Add active class to clicked tab
+            event.target.classList.add('active');
+        }
+    </script>
+</body>
+</html>
