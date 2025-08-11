@@ -4,7 +4,7 @@
         <link>https://www.from0tobchero.com/</link>
         <description>This is From Zero to BC Hero</description>
         <generator>Hugo -- gohugo.io</generator><language>es</language><managingEditor>davidproce@gmail.com (David Proaño)</managingEditor>
-            <webMaster>davidproce@gmail.com (David Proaño)</webMaster><lastBuildDate>Sun, 03 Aug 2025 00:00:00 &#43;0000</lastBuildDate>
+            <webMaster>davidproce@gmail.com (David Proaño)</webMaster><lastBuildDate>Mon, 04 Aug 2025 00:00:00 &#43;0000</lastBuildDate>
             <atom:link href="https://www.from0tobchero.com/index.xml" rel="self" type="application/rss+xml" />
         <item>
     <title>From Zero to BC Hero</title>
@@ -15,6 +15,16 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="/mi-imagen.jpg" referrerpolicy="no-referrer">
             </div>¡From Zero to BC Hero está en marcha!]]></description>
+</item>
+<item>
+    <title>Base técnica AL - Tablas - Clasificación y propósito en Business Central</title>
+    <link>https://www.from0tobchero.com/posts/tables/</link>
+    <pubDate>Mon, 04 Aug 2025 00:00:00 &#43;0000</pubDate>
+    <author>David</author>
+    <guid>https://www.from0tobchero.com/posts/tables/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/tables.png" referrerpolicy="no-referrer">
+            </div>Clasificación funcional de las tablas en BC + herramientas interactivas para dominar las 50 más importantes]]></description>
 </item>
 <item>
     <title>Base técnica AL - Loops - Diferentes tipos y aplicaciones</title>

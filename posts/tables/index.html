@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Base técnica AL - Tablas - Clasificación y propósito en Business Central - From Zero to BC Hero</title><meta name="Description" content="This is From Zero to BC Hero"><meta property="og:url" content="https://www.from0tobchero.com/posts/tables/">
+  <meta property="og:site_name" content="From Zero to BC Hero">
+  <meta property="og:title" content="Base técnica AL - Tablas - Clasificación y propósito en Business Central">
+  <meta property="og:description" content="Clasificación funcional de las tablas en BC &#43; herramientas interactivas para dominar las 50 más importantes">
+  <meta property="og:locale" content="es">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-08-04T00:00:00+00:00">
+    <meta property="article:modified_time" content="2025-08-04T00:00:00+00:00">
+    <meta property="article:tag" content="MB_820">
+    <meta property="article:tag" content="Técnico">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Base técnica AL - Tablas - Clasificación y propósito en Business Central">
+  <meta name="twitter:description" content="Clasificación funcional de las tablas en BC &#43; herramientas interactivas para dominar las 50 más importantes">
+<meta name="application-name" content="From Zero to BC Hero">
+<meta name="apple-mobile-web-app-title" content="From Zero to BC Hero"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://www.from0tobchero.com/posts/tables/" /><link rel="prev" href="https://www.from0tobchero.com/posts/loops_en_bc/" /><link rel="next" href="https://www.from0tobchero.com/posts/mi-primer-post/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Base técnica AL - Tablas - Clasificación y propósito en Business Central",
+        "inLanguage": "es",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/www.from0tobchero.com\/posts\/tables\/"
+        },"genre": "posts","keywords": "MB_820, Técnico","wordcount":  313 ,
+        "url": "https:\/\/www.from0tobchero.com\/posts\/tables\/","datePublished": "2025-08-04T00:00:00+00:00","dateModified": "2025-08-04T00:00:00+00:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "David"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script type="text/javascript">(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('auto' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : 'auto' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="From Zero to BC Hero">From Zero to BC Hero</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> Posts </a><a class="menu-item" href="/tags/"> Tags </a><a class="menu-item" href="/categories/"> Categories </a><a class="menu-item" href="/apps-tools/" title="Herramientas interactivas de aprendizaje"> Tools </a><span class="menu-item delimiter"></span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="From Zero to BC Hero">From Zero to BC Hero</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><a class="menu-item" href="/posts/" title="">Posts</a><a class="menu-item" href="/tags/" title="">Tags</a><a class="menu-item" href="/categories/" title="">Categories</a><a class="menu-item" href="/apps-tools/" title="Herramientas interactivas de aprendizaje">Tools</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Base técnica AL - Tablas - Clasificación y propósito en Business Central</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="davidproce" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>David</a></span>&nbsp;<span class="post-category">included in <a href="/categories/mb_820/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>MB_820</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-08-04">2025-08-04</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;313 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="featured-image"><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/tables/tables.png"
+        data-srcset="/posts/tables/tables.png, /posts/tables/tables.png 1.5x, /posts/tables/tables.png 2x"
+        data-sizes="auto"
+        alt="/posts/tables/tables.png"
+        title="/posts/tables/tables.png" width="1536" height="1024" /></div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#datos-principales">Datos Principales</a>
+      <ul>
+        <li><a href="#master-tables-tablas-maestras">Master Tables (Tablas Maestras)</a></li>
+        <li><a href="#supplementary-tables-tablas-suplementarias">Supplementary Tables (Tablas Suplementarias)</a></li>
+        <li><a href="#subsidiary-tables-tablas-subsidiarias">Subsidiary Tables (Tablas Subsidiarias)</a></li>
+      </ul>
+    </li>
+    <li><a href="#configuración">Configuración</a>
+      <ul>
+        <li><a href="#setup-tables-tablas-de-configuración">Setup Tables (Tablas de Configuración)</a></li>
+      </ul>
+    </li>
+    <li><a href="#transacciones">Transacciones</a>
+      <ul>
+        <li><a href="#document-tables-tablas-de-documentos">Document Tables (Tablas de Documentos)</a></li>
+        <li><a href="#journal-tables-tablas-de-diarios">Journal Tables (Tablas de Diarios)</a></li>
+      </ul>
+    </li>
+    <li><a href="#histórico">Histórico</a>
+      <ul>
+        <li><a href="#document-history-histórico-de-documentos">Document History (Histórico de Documentos)</a></li>
+        <li><a href="#ledger-tables-tablas-de-mayor">Ledger Tables (Tablas de Mayor)</a></li>
+        <li><a href="#register-tables-tablas-de-registro">Register Tables (Tablas de Registro)</a></li>
+      </ul>
+    </li>
+    <li><a href="#herramientas-de-aprendizaje">Herramientas de Aprendizaje</a></li>
+    <li><a href="#-herramientas-de-aprendizaje">🛠️ Herramientas de Aprendizaje</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h1 id="tipos-de-tablas-clasificación-y-propósito-en-business-central">Tipos de Tablas: Clasificación y propósito en Business Central</h1>
+<p>Como desarrolladores en <strong>AL</strong>, es fundamental entender cómo se organizan las tablas en <strong>Business Central</strong>. Esta clasificación funcional nos ayuda a comprender el propósito de cada tabla y cómo interactúan entre sí en el sistema.</p>
+<h2 id="datos-principales">Datos Principales</h2>
+<h3 id="master-tables-tablas-maestras">Master Tables (Tablas Maestras)</h3>
+<ul>
+<li><strong>Propósito</strong>: Son el núcleo del sistema, contienen la información fundamental del negocio</li>
+<li><strong>Ejemplos</strong>: Customer, Vendor, Item, G/L Account</li>
+<li><strong>Características</strong>: Datos relativamente estables, alta frecuencia de consulta</li>
+</ul>
+<h3 id="supplementary-tables-tablas-suplementarias">Supplementary Tables (Tablas Suplementarias)</h3>
+<ul>
+<li><strong>Propósito</strong>: Proporcionan apoyo y configuración a las tablas maestras</li>
+<li><strong>Ejemplos</strong>: Currency, Country/Region, Payment Terms</li>
+<li><strong>Uso</strong>: Validaciones, listas desplegables, configuraciones globales</li>
+</ul>
+<h3 id="subsidiary-tables-tablas-subsidiarias">Subsidiary Tables (Tablas Subsidiarias)</h3>
+<ul>
+<li><strong>Propósito</strong>: Crean enlaces y relaciones entre tablas maestras</li>
+<li><strong>Ejemplos</strong>: Item Vendor, Customer Price Group, Vendor Item No.</li>
+<li><strong>Función</strong>: Establecen relaciones many-to-many entre entidades principales</li>
+</ul>
+<h2 id="configuración">Configuración</h2>
+<h3 id="setup-tables-tablas-de-configuración">Setup Tables (Tablas de Configuración)</h3>
+<ul>
+<li><strong>Propósito</strong>: Definen las reglas y comportamientos del sistema</li>
+<li><strong>Ejemplos</strong>: General Ledger Setup, Sales &amp; Receivables Setup, No. Series</li>
+<li><strong>Características</strong>: Una sola empresa, críticas para el funcionamiento</li>
+</ul>
+<h2 id="transacciones">Transacciones</h2>
+<h3 id="document-tables-tablas-de-documentos">Document Tables (Tablas de Documentos)</h3>
+<ul>
+<li><strong>Propósito</strong>: Almacenan documentos activos en proceso</li>
+<li><strong>Ejemplos</strong>: Sales Header, Purchase Header, Production Order</li>
+<li><strong>Estado</strong>: Documentos no contabilizados, pueden modificarse</li>
+</ul>
+<h3 id="journal-tables-tablas-de-diarios">Journal Tables (Tablas de Diarios)</h3>
+<ul>
+<li><strong>Propósito</strong>: Borradores antes de la contabilización</li>
+<li><strong>Ejemplos</strong>: Gen. Journal Line, Item Journal Line</li>
+<li><strong>Función</strong>: Preparación y validación antes del posting</li>
+</ul>
+<h2 id="histórico">Histórico</h2>
+<h3 id="document-history-histórico-de-documentos">Document History (Histórico de Documentos)</h3>
+<ul>
+<li><strong>Propósito</strong>: Versiones archivadas de documentos contabilizados</li>
+<li><strong>Ejemplos</strong>: Sales Invoice Header, Purch. Rcpt. Header</li>
+<li><strong>Características</strong>: Solo lectura, auditoría y consulta</li>
+</ul>
+<h3 id="ledger-tables-tablas-de-mayor">Ledger Tables (Tablas de Mayor)</h3>
+<ul>
+<li><strong>Propósito</strong>: Transacciones oficiales contabilizadas</li>
+<li><strong>Ejemplos</strong>: G/L Entry, Customer Ledger Entry, Item Ledger Entry</li>
+<li><strong>Importancia</strong>: Base para todos los reportes financieros</li>
+</ul>
+<h3 id="register-tables-tablas-de-registro">Register Tables (Tablas de Registro)</h3>
+<ul>
+<li><strong>Propósito</strong>: Resúmenes y agrupaciones de contabilizaciones</li>
+<li><strong>Ejemplos</strong>: G/L Register, Item Register</li>
+<li><strong>Función</strong>: Trazabilidad y auditoría de procesos de posting</li>
+</ul>
+<h2 id="herramientas-de-aprendizaje">Herramientas de Aprendizaje</h2>
+<p>Para dominar las <strong>50 tablas más importantes</strong> de Business Central, recomiendo utilizar:</p>
+<h2 id="-herramientas-de-aprendizaje">🛠️ Herramientas de Aprendizaje</h2>
+<p>¿Quieres practicar de forma interactiva? Tenemos herramientas especiales para ti:</p>
+<data id="id-1" data-raw></data>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-08-04</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on Twitter" data-sharer="twitter" data-url="https://www.from0tobchero.com/posts/tables/" data-title="Base técnica AL - Tablas - Clasificación y propósito en Business Central" data-hashtags="MB_820,Técnico"><i class="fab fa-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://www.from0tobchero.com/posts/tables/" data-hashtag="MB_820"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Linkedin" data-sharer="linkedin" data-url="https://www.from0tobchero.com/posts/tables/"><i class="fab fa-linkedin fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://www.from0tobchero.com/posts/tables/" data-title="Base técnica AL - Tablas - Clasificación y propósito en Business Central"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://www.from0tobchero.com/posts/tables/" data-title="Base técnica AL - Tablas - Clasificación y propósito en Business Central"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@7.3.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://www.from0tobchero.com/posts/tables/" data-title="Base técnica AL - Tablas - Clasificación y propósito en Business Central" data-image="tables.png"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/mb_820/">MB_820</a>,&nbsp;<a href="/tags/t%C3%A9cnico/">Técnico</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/loops_en_bc/" class="prev" rel="prev" title="Base técnica AL - Loops - Diferentes tipos y aplicaciones"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Base técnica AL - Loops - Diferentes tipos y aplicaciones</a>
+            <a href="/posts/mi-primer-post/" class="next" rel="next" title="From Zero to BC Hero">From Zero to BC Hero<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+</article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.0"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2022 - 2025</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="davidproce" target="_blank">David Proaño</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script type="text/javascript" src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js"></script><script type="text/javascript">window.config={"code":{"copyTitle":"Copy to clipboard","maxShownLines":50},"comment":{},"data":{"id-1":"\r\n\u003cdiv style=\"background: #f8f9fa; \r\n            border: 1px solid #e9ecef;\r\n            padding: 1.5rem; \r\n            margin: 1rem 0; \r\n            border-radius: 8px; \r\n            text-align: center;\"\u003e\r\n    \r\n    \u003ch4 style=\"margin-bottom: 1rem; color: #495057;\"\u003e\r\n        📚 Domina las Tablas de Business Central\r\n    \u003c/h4\u003e\r\n    \r\n    \u003cp style=\"margin-bottom: 1.5rem; color: #6c757d; font-size: 0.9rem;\"\u003e\r\n        Herramientas interactivas para aprender las tablas más importantes\r\n    \u003c/p\u003e\r\n    \r\n    \u003cdiv style=\"display: flex; gap: 0.8rem; justify-content: center; flex-wrap: wrap;\"\u003e\r\n        \u003ca href=\"/apps-tools/tablas-referencia.html\" \r\n           style=\"background: #28a745; \r\n                  color: white; \r\n                  padding: 0.6rem 1.2rem; \r\n                  text-decoration: none; \r\n                  border-radius: 5px; \r\n                  font-size: 0.9rem;\r\n                  font-weight: 500;\"\u003e\r\n            📊 Referencia\r\n        \u003c/a\u003e\r\n        \r\n        \u003ca href=\"/apps-tools/quiz-tablas.html\" \r\n           style=\"background: #007bff; \r\n                  color: white; \r\n                  padding: 0.6rem 1.2rem; \r\n                  text-decoration: none; \r\n                  border-radius: 5px; \r\n                  font-size: 0.9rem;\r\n                  font-weight: 500;\"\u003e\r\n            🧠 Quiz\r\n        \u003c/a\u003e\r\n        \r\n        \u003ca href=\"/apps-tools/flashcards-tablas.html\" \r\n           style=\"background: #fd7e14; \r\n                  color: white; \r\n                  padding: 0.6rem 1.2rem; \r\n                  text-decoration: none; \r\n                  border-radius: 5px; \r\n                  font-size: 0.9rem;\r\n                  font-weight: 500;\"\u003e\r\n            🃏 Flashcards\r\n        \u003c/a\u003e\r\n    \u003c/div\u003e\r\n    \r\n    \u003cdiv style=\"margin-top: 1rem;\"\u003e\r\n        \u003ca href=\"/apps-tools/\" \r\n           style=\"color: #6c757d; \r\n                  text-decoration: none; \r\n                  font-size: 0.8rem;\"\u003e\r\n            Ver todas las herramientas →\r\n        \u003c/a\u003e\r\n    \u003c/div\u003e\r\n\u003c/div\u003e\r\n"}};</script><script type="text/javascript" src="/js/theme.min.js"></script></body>
+</html>
