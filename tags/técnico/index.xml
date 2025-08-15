@@ -4,7 +4,7 @@
         <link>https://www.from0tobchero.com/tags/t%C3%A9cnico/</link>
         <description>Técnico - Tag - From Zero to BC Hero</description>
         <generator>Hugo -- gohugo.io</generator><language>es</language><managingEditor>davidproce@gmail.com (David Proaño)</managingEditor>
-            <webMaster>davidproce@gmail.com (David Proaño)</webMaster><lastBuildDate>Mon, 04 Aug 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://www.from0tobchero.com/tags/t%C3%A9cnico/" rel="self" type="application/rss+xml" /><item>
+            <webMaster>davidproce@gmail.com (David Proaño)</webMaster><lastBuildDate>Fri, 15 Aug 2025 00:00:00 &#43;0000</lastBuildDate><atom:link href="https://www.from0tobchero.com/tags/t%C3%A9cnico/" rel="self" type="application/rss+xml" /><item>
     <title>Base técnica AL - Tablas - Clasificación y propósito en Business Central</title>
     <link>https://www.from0tobchero.com/posts/tables/</link>
     <pubDate>Mon, 04 Aug 2025 00:00:00 &#43;0000</pubDate>
@@ -13,6 +13,16 @@
     <description><![CDATA[<div class="featured-image">
                 <img src="/tables.png" referrerpolicy="no-referrer">
             </div>Clasificación funcional de las tablas en BC + herramientas interactivas para dominar las 50 más importantes]]></description>
+</item>
+<item>
+    <title>Base técnica AL - Páginas en Business Central</title>
+    <link>https://www.from0tobchero.com/posts/estructura-basica-paginas/</link>
+    <pubDate>Fri, 15 Aug 2025 00:00:00 &#43;0000</pubDate>
+    <author>David</author>
+    <guid>https://www.from0tobchero.com/posts/estructura-basica-paginas/</guid>
+    <description><![CDATA[<div class="featured-image">
+                <img src="/pages.jpg" referrerpolicy="no-referrer">
+            </div>El primer paso de todo desarrollador es crear páginas en Business Central, vamos a entender los conceptos básicos.]]></description>
 </item>
 <item>
     <title>Base técnica AL - Loops - Diferentes tipos y aplicaciones</title>
