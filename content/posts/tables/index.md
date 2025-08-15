@@ -2,6 +2,7 @@
 title: "Base técnica AL - Tablas - Clasificación y propósito en Business Central"
 date: 2025-08-04
 author: "David"
+weight: 2
 tags: ["MB_820", "Técnico"]
 categories: ["MB_820"]
 summary: "Clasificación funcional de las tablas en BC + herramientas interactivas para dominar las 50 más importantes"
